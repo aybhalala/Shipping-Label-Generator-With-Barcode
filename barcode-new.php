@@ -1,6 +1,31 @@
 
 <html>
 <head>
+<script>
+function showState(str) {
+    if (str == "") {
+        document.getElementById("stateHint").innerHTML = "";
+        return $state3;
+
+
+    } else { 
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("stateHint").innerHTML = xmlhttp.responseText;
+            }
+        };
+        xmlhttp.open("GET","getpin.php?q="+str,true);
+        xmlhttp.send();
+    }
+}
+</script>
 <title>Personal INFO</title>
 <style type="text/css">
     #contactContent { margin-top: 20px; margin-left: 20px;}
@@ -24,13 +49,12 @@ label{
 </head>
 <body>
 <div id="contactContent">
-<form method="post" action="genbar.php">
+<form method="post" action="genbar-new.php">
 <div style="float:left; position:relative; margin-right:80px">
 <b>
 <label>Vendor:</label>
 <select name="vendor">
 	<option value="Vendor/Self">Vendor/Self</option>
-	<option value="Shubhleen">Shubhleen</option>
 	<option value="Snapdeal">Snapdeal</option>
 	<option value="Ebay">Ebay</option>
 	<option value="Shopping Dil">Shopping Dil</option>
@@ -43,12 +67,21 @@ label{
 	<option value="COD">COD</option>
 	<option value="Prepaid">Prepaid</option>
 </select><br />
+<label>Tarrif Category:</label>
+<select name="tarrif_category">
+	<option value="O-S">O-S</option>
+	<option value="N-S">N-S</option>
+	<option value="W-S">W-S</option>
+	<option value="L-L">L-L</option>
+</select><br />
+<label>Pincode:</label><input type="text" size="15" maxlength="6" name="pincode" onchange="showState(this.value)"><br />
 <label> First 2 Digits of Barcode:</label><input type="text" size="15" maxlength="13" name="barcode2"><br />
 <label>8 Numeric Digits of Barcode:</label><input type="text" size="15" maxlength="8" name="barcode8"><br />
 <label>Customer Name:</label><input type="text" size="15" maxlength="130" name="name"><br />
 <label>Customer Address:</label><textarea rows="5" name="address"></textarea><br />
-<label>Pincode:</label><input type="text" size="15" maxlength="6" name="pincode"><br />
+<label>Customer City:</label><textarea rows="5" name="city"></textarea><br />
 <label>Phone Number:</label><input type="text" size="15" maxlength="13" name="phone"><br />
+<label>State:</label><label id="stateHint" name="stateHint2"><b>Enter Pincode</b></label><br />
 </div>
 <div style="float:left; position: relative;">
 <label>Product:</label><input type="text" size="25" name="product"><br \>
@@ -64,10 +97,12 @@ label{
 <label>CST No:</label><input type="text" size="15" name="cst"><br />
 <label>CIN No:</label><input type="text" size="15" name="cin"><br />
 <div style="text-align:center">
+<?php
+
+?>
 <input type="submit" value="submit" name="submit">
 </div>
 </div>
-
 </form>
 </div>
 </body>

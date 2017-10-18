@@ -34,3 +34,5 @@ echo nl2br($BarcodeF)."<br \>";
 </font>
 </body>
 </html>
+
+/* Just adding comments */
